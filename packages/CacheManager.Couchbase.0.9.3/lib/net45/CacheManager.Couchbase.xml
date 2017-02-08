@@ -1,0 +1,265 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>CacheManager.Couchbase</name>
+    </assembly>
+    <members>
+        <member name="T:CacheManager.Couchbase.BucketCacheHandle`1">
+            <summary>
+            Cache handle implementation based on the couchbase .net client.
+            </summary>
+            <typeparam name="TCacheValue">The type of the cache value.</typeparam>
+        </member>
+        <member name="M:CacheManager.Couchbase.BucketCacheHandle`1.#ctor(CacheManager.Core.ICacheManagerConfiguration,CacheManager.Core.CacheHandleConfiguration,CacheManager.Core.Logging.ILoggerFactory)">
+            <summary>
+            Initializes a new instance of the <see cref="T:CacheManager.Couchbase.BucketCacheHandle`1"/> class.
+            </summary>
+            <param name="managerConfiguration">The manager configuration.</param>
+            <param name="configuration">The cache handle configuration.</param>
+            <param name="loggerFactory">The logger factory.</param>
+            <exception cref="T:System.InvalidOperationException">
+            If <c>configuration.HandleName</c> is not valid.
+            </exception>
+        </member>
+        <member name="P:CacheManager.Couchbase.BucketCacheHandle`1.Count">
+            <summary>
+            Gets the number of items the cache handle currently maintains.
+            </summary>
+            <value>The count.</value>
+        </member>
+        <member name="P:CacheManager.Couchbase.BucketCacheHandle`1.Logger">
+            <inheritdoc />
+        </member>
+        <member name="M:CacheManager.Couchbase.BucketCacheHandle`1.Clear">
+            <summary>
+            Clears this cache, removing all items in the base cache and all regions.
+            </summary>
+        </member>
+        <member name="M:CacheManager.Couchbase.BucketCacheHandle`1.ClearRegion(System.String)">
+            <summary>
+            Clears the cache region, removing all items from the specified <paramref name="region"/> only.
+            </summary>
+            <param name="region">The cache region.</param>
+            <exception cref="T:System.NotImplementedException">Not supported in this version.</exception>
+        </member>
+        <member name="M:CacheManager.Couchbase.BucketCacheHandle`1.Exists(System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:CacheManager.Couchbase.BucketCacheHandle`1.Exists(System.String,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:CacheManager.Couchbase.BucketCacheHandle`1.AddInternalPrepared(CacheManager.Core.CacheItem{`0})">
+            <summary>
+            Adds a value to the cache.
+            </summary>
+            <param name="item">The <c>CacheItem</c> to be added to the cache.</param>
+            <returns>
+            <c>true</c> if the key was not already added to the cache, <c>false</c> otherwise.
+            </returns>
+        </member>
+        <member name="M:CacheManager.Couchbase.BucketCacheHandle`1.Dispose(System.Boolean)">
+            <summary>
+            Performs application-defined tasks associated with freeing, releasing, or resetting
+            unmanaged resources.
+            </summary>
+            <param name="disposeManaged">Indicator if managed resources should be released.</param>
+        </member>
+        <member name="M:CacheManager.Couchbase.BucketCacheHandle`1.GetCacheItemInternal(System.String)">
+            <summary>
+            Gets a <c>CacheItem</c> for the specified key.
+            </summary>
+            <param name="key">The key being used to identify the item within the cache.</param>
+            <returns>The <c>CacheItem</c>.</returns>
+        </member>
+        <member name="M:CacheManager.Couchbase.BucketCacheHandle`1.GetCacheItemInternal(System.String,System.String)">
+            <summary>
+            Gets a <c>CacheItem</c> for the specified key.
+            </summary>
+            <param name="key">The key being used to identify the item within the cache.</param>
+            <param name="region">The cache region.</param>
+            <returns>The <c>CacheItem</c>.</returns>
+        </member>
+        <member name="M:CacheManager.Couchbase.BucketCacheHandle`1.PutInternalPrepared(CacheManager.Core.CacheItem{`0})">
+            <summary>
+            Puts the <paramref name="item"/> into the cache. If the item exists it will get updated
+            with the new value. If the item doesn't exist, the item will be added to the cache.
+            </summary>
+            <param name="item">The <c>CacheItem</c> to be added to the cache.</param>
+        </member>
+        <member name="M:CacheManager.Couchbase.BucketCacheHandle`1.RemoveInternal(System.String)">
+            <summary>
+            Removes a value from the cache for the specified key.
+            </summary>
+            <param name="key">The key being used to identify the item within the cache.</param>
+            <returns>
+            <c>true</c> if the key was found and removed from the cache, <c>false</c> otherwise.
+            </returns>
+        </member>
+        <member name="M:CacheManager.Couchbase.BucketCacheHandle`1.RemoveInternal(System.String,System.String)">
+            <summary>
+            Removes a value from the cache for the specified key.
+            </summary>
+            <param name="key">The key being used to identify the item within the cache.</param>
+            <param name="region">The cache region.</param>
+            <returns>
+            <c>true</c> if the key was found and removed from the cache, <c>false</c> otherwise.
+            </returns>
+        </member>
+        <member name="T:CacheManager.Couchbase.CouchbaseConfigurationManager">
+            <summary>
+            Manages configurations for the couchbase cache handle.
+            <para>
+            The configurations will be added by the configuration builder or configuration loader and
+            then referenced via handle's name.
+            </para>
+            </summary>
+        </member>
+        <member name="M:CacheManager.Couchbase.CouchbaseConfigurationManager.AddConfiguration(System.String,Couchbase.Configuration.Client.ClientConfiguration)">
+            <summary>
+            Adds the configuration.
+            </summary>
+            <param name="name">The name.</param>
+            <param name="configuration">The configuration.</param>
+            <exception cref="T:System.ArgumentNullException">If name or configuration are null.</exception>
+        </member>
+        <member name="M:CacheManager.Couchbase.CouchbaseConfigurationManager.GetConfiguration(System.String)">
+            <summary>
+            Gets the configuration.
+            </summary>
+            <param name="name">The name.</param>
+            <returns>The configuration.</returns>
+            <exception cref="T:System.ArgumentNullException">If name is null.</exception>
+            <exception cref="T:System.InvalidOperationException">
+            If no configuration or section can be found for configuration.
+            </exception>
+        </member>
+        <member name="M:CacheManager.Couchbase.CouchbaseConfigurationManager.GetBucketConfiguration(Couchbase.Configuration.Client.ClientConfiguration,System.String)">
+            <summary>
+            Gets the bucket configuration.
+            </summary>
+            <param name="clientConfiguration">The client configuration.</param>
+            <param name="bucketName">Name of the bucket.</param>
+            <returns>The configuration for the named bucket.</returns>
+            <exception cref="T:System.InvalidOperationException">No bucket with the name found.</exception>
+        </member>
+        <member name="M:CacheManager.Couchbase.CouchbaseConfigurationManager.GetCluster(Couchbase.Configuration.Client.ClientConfiguration)">
+            <summary>
+            Gets a couchbase cluster from configuration.
+            </summary>
+            <param name="clientConfiguration">The client configuration.</param>
+            <returns>The couchbase cluster.</returns>
+        </member>
+        <member name="M:CacheManager.Couchbase.CouchbaseConfigurationManager.GetBucket(Couchbase.Configuration.Client.ClientConfiguration,System.String,System.String)">
+            <summary>
+            Gets a couchbase bucket from configuration.
+            </summary>
+            <param name="clientConfiguration">The client configuration.</param>
+            <param name="configurationName">Name of the configuration.</param>
+            <param name="bucketName">Name of the bucket.</param>
+            <returns>The couchbase bucket.</returns>
+            <exception cref="T:System.ArgumentNullException">
+            If bucketName or clientConfiguration are null.
+            </exception>
+        </member>
+        <member name="T:CacheManager.Core.CouchbaseConfigurationBuilderExtensions">
+            <summary>
+            Extensions for the configuration builder specific to the Couchbase cache handle.
+            </summary>
+        </member>
+        <member name="M:CacheManager.Core.CouchbaseConfigurationBuilderExtensions.WithCouchbaseConfiguration(CacheManager.Core.ConfigurationBuilderCachePart,System.String,Couchbase.Configuration.Client.ClientConfiguration)">
+            <summary>
+            Adds a <see cref="T:Couchbase.Configuration.Client.ClientConfiguration"/> for the given key.
+            <para>The key will be matched with the Couchbase cache handle name.</para>
+            </summary>
+            <param name="part">The part.</param>
+            <param name="configurationKey">The key which has to match with the cache handle name.</param>
+            <param name="config">The Couchbase configuration object.</param>
+            <returns>The configuration builder.</returns>
+            <exception cref="T:System.ArgumentNullException">If key or config are null.</exception>
+        </member>
+        <member name="M:CacheManager.Core.CouchbaseConfigurationBuilderExtensions.WithCouchbaseCacheHandle(CacheManager.Core.ConfigurationBuilderCachePart,System.String)">
+            <summary>
+            Adds a <see cref="T:CacheManager.Couchbase.BucketCacheHandle`1"/> with the required name.
+            <para>
+            This handle requires a Couchbase <see cref="T:Couchbase.Configuration.Client.ClientConfiguration"/> to be defined with
+            the <paramref name="couchbaseConfigurationKey"/> matching the configuration's key.
+            </para>
+            </summary>
+            <param name="part">The builder part.</param>
+            <param name="couchbaseConfigurationKey">
+            The configuration key will be used as name for the cache handle and to retrieve the
+            connection configuration.
+            </param>
+            <returns>The part.</returns>
+            <exception cref="T:System.ArgumentNullException">Thrown if handleName is null.</exception>
+        </member>
+        <member name="M:CacheManager.Core.CouchbaseConfigurationBuilderExtensions.WithCouchbaseCacheHandle(CacheManager.Core.ConfigurationBuilderCachePart,System.String,System.Boolean)">
+            <summary>
+            Adds a <see cref="T:CacheManager.Couchbase.BucketCacheHandle`1"/> with the required name.
+            <para>
+            This handle requires a Couchbase <see cref="T:Couchbase.Configuration.Client.ClientConfiguration"/> to be defined with
+            the <paramref name="couchbaseConfigurationKey"/> matching the configuration's key.
+            </para>
+            </summary>
+            <param name="part">The builder part.</param>
+            <param name="couchbaseConfigurationKey">
+            The Couchbase configuration identifier will be used as name for the cache handle and to
+            retrieve the connection configuration.
+            </param>
+            <param name="isBackplaneSource">
+            Set this to true if this cache handle should be the source of the backplane.
+            <para>This setting will be ignored if no backplane is configured.</para>
+            </param>
+            <returns>The part.</returns>
+            <exception cref="T:System.ArgumentNullException">
+            Thrown if handleName or handleType are null.
+            </exception>
+        </member>
+        <member name="M:CacheManager.Core.CouchbaseConfigurationBuilderExtensions.WithCouchbaseCacheHandle(CacheManager.Core.ConfigurationBuilderCachePart,System.String,System.String)">
+            <summary>
+            Adds a <see cref="T:CacheManager.Couchbase.BucketCacheHandle`1"/> with the required name.
+            <para>
+            This handle requires a Couchbase <see cref="T:Couchbase.Configuration.Client.ClientConfiguration"/> to be defined with
+            the <paramref name="couchbaseConfigurationKey"/> matching the configuration's key.
+            </para>
+            </summary>
+            <param name="part">The builder part.</param>
+            <param name="couchbaseConfigurationKey">
+            The configuration key will be used as name for the cache handle and to retrieve the
+            connection configuration.
+            </param>
+            <param name="bucketName">
+            The name of the Couchbase bucket which should be used by the cache handle.
+            </param>
+            <returns>The part.</returns>
+            <exception cref="T:System.ArgumentNullException">If bucketName is null.</exception>
+            <exception cref="T:System.ArgumentNullException">Thrown if handleName is null.</exception>
+        </member>
+        <member name="M:CacheManager.Core.CouchbaseConfigurationBuilderExtensions.WithCouchbaseCacheHandle(CacheManager.Core.ConfigurationBuilderCachePart,System.String,System.String,System.Boolean)">
+            <summary>
+            Adds a <see cref="T:CacheManager.Couchbase.BucketCacheHandle`1"/> with the required name.
+            <para>
+            This handle requires a Couchbase <see cref="T:Couchbase.Configuration.Client.ClientConfiguration"/> to be defined with
+            the <paramref name="couchbaseConfigurationKey"/> matching the configuration's key.
+            </para>
+            </summary>
+            <param name="part">The builder part.</param>
+            <param name="couchbaseConfigurationKey">
+            The Couchbase configuration identifier will be used as name for the cache handle and to
+            retrieve the connection configuration.
+            </param>
+            <param name="bucketName">
+            The name of the Couchbase bucket which should be used by the cache handle.
+            </param>
+            <param name="isBackplaneSource">
+            Set this to true if this cache handle should be the source of the backplane.
+            <para>This setting will be ignored if no backplane is configured.</para>
+            </param>
+            <returns>The part.</returns>
+            <exception cref="T:System.ArgumentNullException">If bucketName is null.</exception>
+            <exception cref="T:System.ArgumentNullException">
+            Thrown if handleName or handleType are null.
+            </exception>
+        </member>
+    </members>
+</doc>
